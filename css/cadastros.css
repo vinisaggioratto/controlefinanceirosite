@@ -1,0 +1,52 @@
+html, * {
+    /** Reseta os estilos **/
+    margin: 0;
+    padding: 0;
+  }
+
+  #cadastro{
+    /*margin-top: 3em;*/
+    padding: 1em;
+    border: 2px solid red;/**/
+
+}
+
+.cadastroInputs input,
+.cadastroInputs textarea{
+    border-color: green;
+}
+
+.espacamentoDiv{
+    margin-top: 0.5em;
+    display: flex;
+    justify-content: center;
+}
+
+#buttonCadastrar{
+    display: flex;
+    justify-content: center;
+}
+
+#botoesCrud{
+    border: 2px solid red;/**/
+    margin-top: 1em;
+    padding: 0.5em;
+}
+
+#botoes{
+    display: flex;
+    justify-content: center;
+}
+
+.botoesConfig{
+    margin-right: 1em;
+}
+
+#sectionTabela{
+    margin-top: 1em;
+}
+
+.tabela{
+    border: 2px solid red;/**/
+    padding: 0.5em;
+}

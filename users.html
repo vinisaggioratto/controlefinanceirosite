@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+  <title>Controle Financeiro - Cadastro de usuários</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="css/login.css">
+  <link rel="stylesheet" href="css/menu.css">
+  <link rel="stylesheet" href="css/cadastros.css">
+  <script src="js/menu.js"></script>
+</head>
+
+<body onload="showOperation()">
+  <div id="app">
+  </div>
+  <header>
+    <!--MENU-->
+    <div id="menuideal">
+
+    </div>
+    <script src="js/menupadrao.js"></script>
+    <script>
+      let perfilIdeal = document.getElementById('menuideal');
+      //const perfil = window.localStorage.getItem('perfil');
+      const perfil = 'ADMINISTRADOR'
+      perfilIdeal.innerHTML = menuIdeal[perfil];
+    </script>
+  </header>
+
+  <section id="botoesCrud" class="container">
+    <div id="botoes" class="container">
+      <button type="button" class="btn btn-primary botoesConfig" onclick="carregarModalCadastro()">Cadastrar</button>
+    </div>
+  </section>
+
+
+  <section id="sectionTabela">
+    <div id="dataOperationsOnLoad" class="container tabela">
+      <table class="table table-striped table-hover" id="tabela-cadastros">
+        <tbody id="bodytabela">
+
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- MODALS -->
+  <!-- MODAL DE CADASTRO -->
+
+  <div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true" id="modal-cadastro">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Cadastrar Usuário</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body cadastroInputs">
+          <form>
+            <div class="mb-3" id="register">
+              <label for="register" class="form-label">Cadastro principal</label>
+              <select name="register" id="selectRegister">
+                <!--Vai exibir todos os cadastros do sistema.-->
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="username" class="form-label">Username</label>
+              <input type="text" class="form-control" id="username" required>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" id="password" required>
+            </div>
+            <div class="mb-3">
+              <label for="description" class="form-label">Ativo?</label>
+              <select name="is_active" id="is_active">
+                <option value="true">Sim</option>
+                <option value="false">Não</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" type="submit" onclick="cadastrarOperation()">Cadastrar</button>
+          <button type="button" class="btn btn-danger">Limpar</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE UPDATE -->
+  <div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true" id="modal-alterar">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Alterar Operação</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body cadastroInputs">
+          <form>
+            <div class="mb-3">
+              <label for="name" class="form-label">Id</label>
+              <input type="text" class="form-control" id="idUpdate" required>
+            </div>
+
+            <div class="mb-3" id="register2">
+              <label for="register" class="form-label">Cadastro principal</label>
+              <select name="register" id="selectRegister2">
+                <!--Vai exibir todos os cadastros do sistema.-->
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label for="username" class="form-label">Username</label>
+              <input type="text" class="form-control" id="username2" required>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="text" class="form-control" id="password2" required>
+            </div>
+            <div class="mb-3">
+              <label for="description" class="form-label">Ativo?</label>
+              <select name="is_active" id="is_active2">
+                <option value="true">Sim</option>
+                <option value="false">Não</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" type="submit" onclick="alterarOperation()">Alterar</button>
+          <button type="button" class="btn btn-danger">Limpar</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE CADASTRO REALIZADO COM SUCESSO -->
+  <div class="modal fade" id="modal-sucesso-cadastro" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+    tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Operação</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Cadastro realizado com sucesso!
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE ALTERAÇÃO REALIZADA COM SUCESSO -->
+  <div class="modal fade" id="modal-sucesso-alterar" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+    tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Operação</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Alteração realizada com sucesso!
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE CADASTRO NÃO REALIZADO -->
+  <div class="modal fade" id="modal-erro-cadastro" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
+    tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Operação</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Erro ao realizar cadastro.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://unpkg.com/vue@3"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+    </script>
+  <script src="js/users.js"></script>
+  <script src="js/filtros.js"></script>
+  <script>
+    const { createApp } = Vue
+    createApp().mount('#app')
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+html, * {
+    /** Reseta os estilos **/
+    margin: 0;
+    padding: 0;
+  }
+
+#login {
+    width: 30em;
+    margin: 11em auto;
+    /** border: 2px solid red; **/
+    border-radius: 1em;
+    padding: 0.7em;
+    height: 16em;
+    align-items: center;
+    justify-content: center;
+    background-color: darkgrey;
+}
+
+#btn-login {
+    /*border: 2px solid red;*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.3em;
+}
+
+#btn-login button {
+    width: 10em;
+}
+
+.inputs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1em;
+}
