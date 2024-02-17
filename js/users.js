@@ -14,15 +14,20 @@ function carregarModalAlterar() {
 ///////////////////////////////////////////
 
 function cadastrarOperation() {
-    var name = document.getElementById('name')
-    var description = document.getElementById('description')
+    var register = document.getElementById('selectRegister')
+    var username = document.getElementById('username')
+    var password = document.getElementById('password')
+    var active = document.getElementById('is_active')
     var mostrarDados = document.getElementById('dataOperationsOnLoad')
 
-    console.log(`Status dos input's: Name: ${name.value} | Description: ${description.value}.`)
+    console.log(`Status dos input's: 
+            Name: ${username.value} | Description: ${register.value}. | Active: ${active.value}`)
 
     axios.post(baseUrl, {
-        name: name.value,
-        description: description.value
+        register: register.value,
+        username: username.value,
+        password: password.value,
+        is_active: active.value
     })
         .then(function (response) {
             console.log(response);
@@ -30,8 +35,8 @@ function cadastrarOperation() {
             if (response.status == 200) {
                 const myModal = new bootstrap.Modal('#modal-sucesso-cadastro', {});
                 myModal.show();
-                name.value = ''
-                description.value = ''
+                username.value = ''
+                password.value = ''
                 mostrarDados.innerHTML += ''
                 showOperation()
             }
@@ -160,7 +165,7 @@ function preencherFormulario(linha) {
         document.getElementById('is_active2').setAttribute = false
     }
 }
-
+/*
 function carregarDadosModal() {
     preencherFormulario()
-}
+}*/
